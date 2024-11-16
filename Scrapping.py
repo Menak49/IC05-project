@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 import re  # module for regular expression
-
+# test
 if __name__ == "__main__":
 
     links = []  # ensemble des sites web interessants
