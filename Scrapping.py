@@ -44,7 +44,6 @@ if __name__ == "__main__":
 
     def get_type():
         type = []
-
         for item in soup.select("li"):
             text = item.get_text()
             type_match = re.search(r'-\s+\d{1,2} \w+ 2024\s+-\s+(.*?)\s*\(', text)
@@ -52,27 +51,31 @@ if __name__ == "__main__":
                 type.append(type_match.group(1).strip())
         return type
 
+#correction pour les entreprises
+    entreprise = get_entreprise()
+    correction = []
+    for elt in entreprise:
+        if elt != "\u200d":
+            correction.append(elt)
+entreprise = correction
 
-    print(len(get_entreprise()))
-    print(get_dates())
-    print(len(get_type()))
-    print(len(get_all_line()))
-
-    for elt in get_entreprise():
-        print(elt)
-    #print (len(get_all_line()))
+#correction pour les dates et types
+dates = get_dates()
+dates.append("22 août 2024")
+type=get_type()
+type.append("Mise en vente des données de 60 000 allocataires sur le DarkWeb")
 
 
 # insert into the csv file
-"""
-with open('cyber_attack.csv', 'w', newline='', encoding='utf-8') as file:
+
+with open('cyber_attack.csv', 'w', encoding='utf-8',newline='' ) as file:
     writer = csv.writer(file)
     field = ["entreprise","date","type"]
-    ls_entreprise = get_entreprise()
-    ls_dates = get_dates()
-    ls_types = get_type()
+    ls_entreprise = entreprise
+    ls_dates = dates
+    ls_types = type
     writer.writerow(field)
-    for i in range(len(get_entreprise())):
+    for i in range(len(entreprise)):
         writer.writerow([ls_entreprise[i],ls_dates[i],ls_types[i]])
     file.close()
-"""
+
