@@ -18,9 +18,9 @@ if __name__ == "__main__":
         count=0
         for item in soup.select("li"):
             text = item.get_text(strip=True)
-            if count>1:
+            if count > 1:
                 all_line.append(text)
-            count+=1
+            count += 1
         return all_line
 
 
@@ -64,7 +64,6 @@ dates = get_dates()
 dates.append("22 août 2024")
 type=get_type()
 type.append("Mise en vente des données de 60 000 allocataires sur le DarkWeb")
-
 
 # insert into the csv file
 
