@@ -1,3 +1,28 @@
+from bs4 import BeautifulSoup
+import requests
+import csv
+import re  # module for regular expression
+
+
+
+
+
+
+# Fonction qui
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import csv
 from geopy.geocoders import Nominatim
 
