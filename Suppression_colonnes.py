@@ -35,7 +35,7 @@ df = df.drop(columns=colonnes_a_supprimer)
 print("\n\nFichier nettoyé de ses colonnes : \n")
 
 # sauvegarder dans un nouveau fichier Excel
-df.to_excel(fichier_excel[nb] + "_v2" + ".xlsx", index=False)
+df.to_excel(fichier_excel[:nb] + "_v2" + ".xlsx", index=False)
 
 print(df.iloc[0:10])  # Affichage apres
 
