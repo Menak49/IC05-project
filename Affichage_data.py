@@ -1,12 +1,11 @@
 
 import pandas as pd
-
 # Modifier les options d'affichage
 pd.set_option('display.max_columns', None)  # Affiche toutes les colonnes
 pd.set_option('display.width', None)       # Ajuste la largeur pour éviter les coupures
 pd.set_option('display.max_colwidth', None)  # Affiche tout le contenu des cellules
 
-fichiers_excel = ["Data2.xlsx", "Data1.xlsx", "cyber_attack.csv"]# Liste des fichiers à traiter à modifier selon les besoins
+fichiers_excel = ["Data2.xlsx", "Data2_v2.xlsx"]# Liste des fichiers à traiter à modifier selon les besoins
 
 
 for fichier in fichiers_excel:
