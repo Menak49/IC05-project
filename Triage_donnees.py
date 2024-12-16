@@ -1,28 +1,3 @@
-from bs4 import BeautifulSoup
-import requests
-import csv
-import re  # module for regular expression
-
-
-
-
-
-
-# Fonction qui
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import csv
 from geopy.geocoders import Nominatim
 
@@ -44,6 +19,8 @@ with open('Cyber Events Database - Records thru June 2024.csv', encoding=' ISO-8
                 pays[i] = row[-2]
                 i += 1
 
+print("top",pays,len(pays))
+
 # traitement pour les longitudes et latitudes
 pays.pop(0)
 pays[36] = "North Korea"  # petite correction d'un bug lié à la detection de la Corée du Nord
@@ -59,3 +36,5 @@ for key in pays:
 for key, val in pays.items():
     new_key = lat_long[key - 1]
     pays_loc[new_key] = val
+
+print(pays_loc)

@@ -25,7 +25,6 @@ for fichier in fichiers_excel:
         print(f"Erreur pour : {fichier}")
 
 
-
 pays = df["country"].unique().tolist()
 
 
