@@ -52,12 +52,12 @@ def group_by(path):
 
 
     # Afficher les premières lignes du fichier pour vérifier les données
-    print(df.head())
+
 
     # Effectuer un "group by" sur la colonne 'Pays' et sommer les ventes
-    result = df.groupby('country').sum(numeric_only=True).reset_index()
-
-    df.to_excel("fichier_grouped.xlsx", index=False)
+    result = df.groupby('country').size().reset_index(name='count')
+    print(result)
+    result.to_excel("fichier_grouped.xlsx", index=False)
 
 
 
