@@ -27,7 +27,7 @@ for fichier in fichiers_excel:
 
 pays = df["country"].unique().tolist()
 
-
+print(pays)
 
 index_undetermined1 = pays.index("Undetermined")
 pays.pop(index_undetermined1)
