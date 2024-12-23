@@ -1,6 +1,9 @@
+
+
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+from lxml import html
 
 # Liste des régions et pays
 regions = {
@@ -45,6 +48,36 @@ regions = {
 
 # URL de la page contenant l'IDH par pays
 url = "https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index"
+
+def scrap_idh(url):
+
+
+
+    # Récupération du contenu HTML de la page
+    response = requests.get(url)
+    if response.status_code == 200:
+        # Parser le contenu HTML avec lxml
+        tree = html.fromstring(response.content)
+
+        # Utiliser XPath pour trouver la table avec les classes spécifiées
+        xpath_expr = "//*[@id='mw-content-text']/div[1]/table[2]/tbody//tr"
+        table = tree.xpath(xpath_expr)
+        print(len(table[4].text_content()))
+        dico = {}
+        for i in range(1, 10):
+            if len(table[i]) == 5:
+                idh = table[i][3].text_content()
+                print(table[i][0].text_content(),table[i][2].text_content(),idh)
+                dico[table[i][2].text_content().replace('\xa0', '')[:-1]] = idh
+            else:
+                print( table[i][1].text_content(), table[i][2].text_content())
+                dico[table[i][1].text_content().replace('\xa0', '')[:-1]] = idh
+
+        print(dico)
+        return dico
+    else:
+        print(f"Erreur de requête : {response.status_code}")
+
 
 
 def update_excel_with_idh(excel_path, url, regions):
@@ -93,6 +126,11 @@ def update_excel_with_idh(excel_path, url, regions):
     print("Le fichier avec les IDH a été sauvegardé sous le nom 'fichier_avec_idh.xlsx'.")
 
 
-# Exemple d'utilisation
+
+
 if __name__ == "__main__":
-    update_excel_with_idh("fichier_grouped.xlsx", url, regions)
+    #update_excel_with_idh("fichier_grouped.xlsx", url, regions)
+    dico_idh = scrap_idh("https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index")
+
+
+
