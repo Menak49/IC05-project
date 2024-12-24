@@ -2,7 +2,56 @@ import pandas as pd
 import geopandas as gpd
 import numpy as np
 import matplotlib.pyplot as plt
+"""Voici le script pour générer les graphiques python ils sont adaptés à la bdd du maryland. Pour changer à la bdd eurepoc il faut modifier le filepath pour
+indiquer le chemin de la bdd eurepoc sur votre ordi, extraire l'année lorsqu'elle est nécessaire pour les graphiques et filtrer differemment ici le manque
+d'info est noté 'not available' et pas 'undetermined', il faut aussi changer le nom des colonnes pour l'adapter aux noms  de la deuxième bdd mais les fonctions
+sont les même sinon. Voici en bas un exemple d'une fonction pour la bdd eurepoc (receiver country correspond ici à la colonne des pays attaqués dans la bdd eurepoc):
 
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Charger les données depuis le fichier Excel
+file_path = r'C:\Users\aissa\Desktop\IC05\projet\Data1_v2_v2.xlsx'
+df = pd.read_excel(file_path)
+
+# Convertir la colonne 'date' en datetime et extraire l'année
+df['date'] = pd.to_datetime(df['date'], errors='coerce')  # Gérer les dates invalides
+df['année'] = df['date'].dt.year
+print("La colonne 'année' a été ajoutée avec succès.")
+
+
+# Filtrer les lignes où le pays de réception est valide
+df_filtered = df[df['receiver_country'] != 'Not available']
+
+# Vérifier si les colonnes nécessaires pour le groupement existent
+if 'année' in df_filtered.columns and 'receiver_country' in df_filtered.columns:
+    # Regrouper les données par année et pays
+    attacks_by_country_year = (
+        df_filtered.groupby(['année', 'receiver_country'])
+        .size()
+        .unstack(fill_value=0)
+    )
+
+    # Afficher les résultats pour chaque année
+    for year in attacks_by_country_year.index:
+        print(f"\nClassement des pays qui ont le plus attaqués en {year}:")
+        country_rank = attacks_by_country_year.loc[year].sort_values(ascending=False)
+        print(country_rank.head(10))
+
+        # Afficher un graphique pour chaque année
+        plt.figure(figsize=(10, 6))
+        country_rank.head(10).plot(kind='bar', color='skyblue')
+        plt.title(f"Top 10 des pays les plus attaqués en {year}")
+        plt.xlabel('Pays')
+        plt.ylabel('Nombre d\'attaques')
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
+        
+else:
+    print("Les colonnes nécessaires ('année' ou 'receiver_country') sont manquantes.")
+"""
 
 def charger_donnees(file_path, sheet_name):
     """Charge les données Excel."""
