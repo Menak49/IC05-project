@@ -169,7 +169,7 @@ def analyser_pays_par_annee(data):
 # Exemple d'utilisation
 file_path = r'C:\Users\aissa\Desktop\IC05\projet\Data2_v2.xlsx'
 shapefile_path = r'C:\Users\aissa\Desktop\IC05\projet\shapefiles\naturalearth_lowres.shp'
-correction_noms = {
+correction_noms = { # le dictionnaire a été généré par chatgpt à l'aide d'un autre script qui n'est pas présent dans le fichier.
     "USA": "United States of America",
     "UK": "United Kingdom",
     "Taiwan (Province of China)": "Taiwan",
