@@ -4,6 +4,32 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from lxml import html
+from rapidfuzz import process
+
+countries = [
+    "United States of America", "Canada", "Guatemala", "Cayman Islands", "Barbados", "Costa Rica", "Panama",
+    "Dominican Republic", "Cuba", "Puerto Rico", "Bermuda", "Jamaica", "El Salvador", "French Guiana", "Guadeloupe",
+    "Saint Vincent and the Grenadines", "Nicaragua", "Bahamas", "Brazil", "Paraguay", "Ecuador", "Chile", "Colombia",
+    "Argentina", "Peru", "Uruguay", "Bolivia (Plurinational State of)", "Suriname",
+    "United Kingdom of Great Britain and Northern Ireland", "Germany", "France", "Belgium", "Netherlands",
+    "Luxembourg", "Ireland", "Portugal", "Switzerland", "Monaco", "Andorra", "Malta", "Liechtenstein", "Iceland",
+    "Gibraltar", "Italy", "Spain", "Greece", "Cyprus", "Albania", "Bosnia and Herzegovina", "Croatia", "Serbia",
+    "North Macedonia", "Montenegro", "Kosovo", "Poland", "Ukraine", "Romania", "Bulgaria",
+    "Moldova (the Republic of)", "Slovakia", "Czech Republic", "Hungary", "Belarus", "Lithuania", "Latvia", "Estonia",
+    "Finland", "Sweden", "Denmark", "Norway", "Russia", "Armenia", "Georgia", "Azerbaijan", "Egypt", "Morocco",
+    "Algeria", "Tunisia", "Libya", "Nigeria", "Ghana", "Senegal", "Sierra Leone", "Gabon", "Côte d'Ivoire", "Liberia",
+    "Togo", "Mali", "Burkina Faso", "Cameroon", "Central African Republic", "Republic of the Congo", "Chad",
+    "Equatorial Guinea", "São Tomé and Príncipe", "Kenya", "Ethiopia", "Uganda", "Rwanda", "Seychelles", "Tanzania",
+    "Somalia", "Djibouti", "Mozambique", "South Africa", "Namibia", "Angola", "Zimbabwe", "Botswana", "Lesotho",
+    "Swaziland", "Malawi", "China", "Japan", "South Korea", "North Korea", "Taiwan", "Mongolia", "Hong Kong", "Macau",
+    "India", "Pakistan", "Bangladesh", "Sri Lanka", "Nepal", "Maldives", "Afghanistan", "Malaysia", "Singapore",
+    "Thailand", "Vietnam", "Philippines", "Indonesia", "Brunei", "Laos", "Myanmar", "Cambodia", "Timor-Leste",
+    "Turkey", "Saudi Arabia", "Iran", "Iraq", "Israel", "Jordan", "Lebanon", "Syria", "Kuwait", "Qatar", "Bahrain",
+    "Oman", "United Arab Emirates", "Kazakhstan", "Uzbekistan", "Turkmenistan", "Kyrgyzstan", "Tajikistan",
+    "Australia", "New Zealand", "Palau", "Fiji", "Papua New Guinea", "Nauru", "Kiribati", "Vanuatu", "Tonga",
+    "American Samoa", "Guam", "Samoa", "Isle of Man", "Bonaire, Sint Eustatius and Saba", "Sint Maarten", "Greenland",
+    "European Union", "Multiple"
+]
 
 # Liste des régions et pays
 regions = {
@@ -46,6 +72,15 @@ regions = {
                                          "Multiple"]
 }
 
+def comparaison_pays(region, dico_pays):
+    var = 0
+    for country in dico_pays:
+        print(country)
+        if country in region:
+            var += 1
+    print(var, len(dico_pays))
+
+
 # URL de la page contenant l'IDH par pays
 url = "https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index"
 
@@ -62,15 +97,15 @@ def scrap_idh(url):
         # Utiliser XPath pour trouver la table avec les classes spécifiées
         xpath_expr = "//*[@id='mw-content-text']/div[1]/table[2]/tbody//tr"
         table = tree.xpath(xpath_expr)
-        print(len(table[4].text_content()))
+        #print(len(table[4].text_content()))
         dico = {}
-        for i in range(1, 10):
+        for i in range(1, len(table)):
             if len(table[i]) == 5:
                 idh = table[i][3].text_content()
-                print(table[i][0].text_content(),table[i][2].text_content(),idh)
+                #print(table[i][0].text_content(),table[i][2].text_content(),idh)
                 dico[table[i][2].text_content().replace('\xa0', '')[:-1]] = idh
             else:
-                print( table[i][1].text_content(), table[i][2].text_content())
+                #print( table[i][1].text_content(), table[i][2].text_content())
                 dico[table[i][1].text_content().replace('\xa0', '')[:-1]] = idh
 
         print(dico)
@@ -80,49 +115,24 @@ def scrap_idh(url):
 
 
 
-def update_excel_with_idh(excel_path, url, regions):
-    """
-    Récupère les IDH des pays à partir d'un site web et les ajoute à un fichier Excel existant.
-
-    Args:
-        excel_path (str): Le chemin du fichier Excel à modifier.
-        url (str): URL de la page contenant les IDH des pays.
-        regions (dict): Dictionnaire contenant les régions et leurs pays associés.
-    """
-
-    # Effectuer la requête HTTP pour récupérer le contenu de la page
-    response = requests.get(url)
-
-    # Vérifier si la requête a réussi
-    if response.status_code != 200:
-        print("Erreur lors de la récupération de la page.")
-        return
-
-    # Analyser le contenu avec BeautifulSoup
-    soup = BeautifulSoup(response.content, 'html.parser')
-
-    # Extraire le tableau des pays et de leur IDH
-    table = soup.find('table', {'class': 'flagicon'})
-
-    # Créer un dictionnaire pour stocker les IDH par pays
-    idh_by_country = {}
-
+def update_excel_with_idh(excel_path, dico_pays):
     # Parcourir chaque ligne du tableau
-    for row in table.find_all('tr')[1:]:  # Ignorer la première ligne d'en-tête
-        columns = row.find_all('td')
-        if len(columns) >= 3:
-            country = columns[1].get_text(strip=True)  # Nom du pays
-            idh = columns[2].get_text(strip=True)  # IDH
-            idh_by_country[country] = idh
 
     # Lire le fichier Excel existant
     df = pd.read_excel(excel_path)
 
     # Ajouter une colonne 'IDH' basée sur les pays
-    df['IDH'] = df['country'].apply(lambda country: idh_by_country.get(country, 'Non disponible'))
-
+    for index, row in df.iterrows():
+        country = row['country']  # Supposons que la colonne des pays s'appelle 'Pays'
+        result = process.extractOne(country, dico_pays.keys(), score_cutoff=80)
+        if result:  # Si un résultat est trouvé avec un score suffisant
+            match, score, _ = result  # Déballer correctement le tuple
+            df.at[index, 'IDH'] = dico_pays[match]
+        else:
+            df.at[index, 'IDH'] = "No data"  # Si aucun score trouvé
+    excel = excel_path[:-4] + "2.xlsx"
     # Sauvegarder le fichier modifié
-    df.to_excel("fichier_avec_idh.xlsx", index=False)
+    df.to_excel(excel, index=False)
     print("Le fichier avec les IDH a été sauvegardé sous le nom 'fichier_avec_idh.xlsx'.")
 
 
@@ -131,6 +141,9 @@ def update_excel_with_idh(excel_path, url, regions):
 if __name__ == "__main__":
     #update_excel_with_idh("fichier_grouped.xlsx", url, regions)
     dico_idh = scrap_idh("https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index")
+    print(countries)
+    update_excel_with_idh("Tableaux/fichier_avec_idh.xlsx", dico_idh)
+
 
 
 
