@@ -135,14 +135,39 @@ def update_excel_with_idh(excel_path, dico_pays):
     df.to_excel(excel, index=False)
     print("Le fichier avec les IDH a été sauvegardé sous le nom 'fichier_avec_idh.xlsx'.")
 
+def scrap_internet(url): #ITU
+    # Récupération du contenu HTML de la page
+    response = requests.get(url)
+    if response.status_code == 200:
+        # Parser le contenu HTML avec lxml
+        tree = html.fromstring(response.content)
+
+        # Utiliser XPath pour trouver la table avec les classes spécifiées
+        xpath_expr = "//*[@id='mw-content-text']/div[1]/table[3]/tbody/tr"
+
+        table = tree.xpath(xpath_expr)
+        print(table[2][1].text_content())
+        print(len(table[1][5].text_content()))
+        dico = {}
+        for i in range(1, len(table)):
+            dico[table[i][0].text_content()[1:]] = table[i][3].text_content()
+
+
+
+        print(dico)
+        return dico
+    else:
+        print(f"Erreur de requête : {response.status_code}")
+
 
 
 
 if __name__ == "__main__":
     #update_excel_with_idh("fichier_grouped.xlsx", url, regions)
-    dico_idh = scrap_idh("https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index")
-    print(countries)
-    update_excel_with_idh("Tableaux/fichier_avec_idh.xlsx", dico_idh)
+    #dico_idh = scrap_idh("https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index")
+    #print(countries)
+    #update_excel_with_idh("Tableaux/fichier_avec_idh.xlsx", dico_idh)
+    scrap_internet("https://en.wikipedia.org/wiki/List_of_countries_by_number_of_Internet_users")
 
 
 
