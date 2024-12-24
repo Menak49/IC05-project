@@ -2,7 +2,10 @@ import pandas as pd
 import geopandas as gpd
 import numpy as np
 import matplotlib.pyplot as plt
-"""Voici le script pour générer les graphiques python ils sont adaptés à la bdd du maryland. Pour changer à la bdd eurepoc il faut modifier le filepath pour
+"""
+ATTENTION IL FAUT SUPPRIMER CE COMMENTAIRE ENTIEREMENT POUR POUVOIR LANCER LE SCRIPT CAR CERTAINS CARACTERES SPECIAUX SONT DETECTES DANS LE COMMENTAIRE CE QUI EMPECHE
+L'EXECUTION DU SCRIPT!!!
+Voici le script pour générer les graphiques python ils sont adaptés à la bdd du maryland. Pour changer à la bdd eurepoc il faut modifier le filepath pour
 indiquer le chemin de la bdd eurepoc sur votre ordi, extraire l'année lorsqu'elle est nécessaire pour les graphiques et filtrer differemment ici le manque
 d'info est noté 'not available' et pas 'undetermined', il faut aussi changer le nom des colonnes pour l'adapter aux noms  de la deuxième bdd mais les fonctions
 sont les même sinon. Voici en bas un exemple d'une fonction pour la bdd eurepoc (receiver country correspond ici à la colonne des pays attaqués dans la bdd eurepoc):
