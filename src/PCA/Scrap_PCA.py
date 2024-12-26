@@ -115,7 +115,7 @@ def scrap_idh(url):
 
 
 
-def update_excel_with_idh(excel_path, dico_pays):
+def update_excel(excel_path, dico_pays, colonne):
     # Parcourir chaque ligne du tableau
 
     # Lire le fichier Excel existant
@@ -127,9 +127,9 @@ def update_excel_with_idh(excel_path, dico_pays):
         result = process.extractOne(country, dico_pays.keys(), score_cutoff=80)
         if result:  # Si un résultat est trouvé avec un score suffisant
             match, score, _ = result  # Déballer correctement le tuple
-            df.at[index, 'IDH'] = dico_pays[match]
+            df.at[index, colonne] = dico_pays[match]
         else:
-            df.at[index, 'IDH'] = "No data"  # Si aucun score trouvé
+            df.at[index, colonne] = "No data"  # Si aucun score trouvé
     excel = excel_path[:-4] + "2.xlsx"
     # Sauvegarder le fichier modifié
     df.to_excel(excel, index=False)
@@ -151,9 +151,6 @@ def scrap_internet(url): #ITU
         dico = {}
         for i in range(1, len(table)):
             dico[table[i][0].text_content()[1:]] = table[i][3].text_content()
-
-
-
         print(dico)
         return dico
     else:
@@ -167,7 +164,8 @@ if __name__ == "__main__":
     #dico_idh = scrap_idh("https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index")
     #print(countries)
     #update_excel_with_idh("Tableaux/fichier_avec_idh.xlsx", dico_idh)
-    scrap_internet("https://en.wikipedia.org/wiki/List_of_countries_by_number_of_Internet_users")
+    dico_internet = scrap_internet("https://en.wikipedia.org/wiki/List_of_countries_by_number_of_Internet_users")
+    update_excel("Tableaux/fichier_avec_idh.2.xlsx", dico_internet, 'Connections Internet (en %)')
 
 
 
