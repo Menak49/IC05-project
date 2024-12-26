@@ -130,7 +130,7 @@ def update_excel(excel_path, dico_pays, colonne):
             df.at[index, colonne] = dico_pays[match]
         else:
             df.at[index, colonne] = "No data"  # Si aucun score trouvé
-    excel = excel_path[:-4] + "2.xlsx"
+    excel = excel_path[:-5] + "2.xlsx"
     # Sauvegarder le fichier modifié
     df.to_excel(excel, index=False)
     print("Le fichier avec les IDH a été sauvegardé sous le nom 'fichier_avec_idh.xlsx'.")
