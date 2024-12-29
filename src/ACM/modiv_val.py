@@ -65,7 +65,7 @@ def group_values(fichier) :
     df_modif= pd.DataFrame(modif)
     print(modif)
 
-    df_modif.to_excel('testDuppli.xlsx', index=False)
+    df_modif.to_excel('Data2_V3.xlsx', index=False)
 """         
     if 'event_subtype' in df.columns:
         attack_type=df['event_subtype'].tolist()
