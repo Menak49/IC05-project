@@ -10,8 +10,8 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import numpy as np
 
-import pandas as pd
-import numpy as np
+import streamlit as st
+import plotly.express as px
 
 
 def remplacer_no_data_par_moyenne(df, columns):
@@ -119,18 +119,92 @@ def analyse_pca(excel_path, columns_to_analyze, country_column='Pays', n_compone
     return pca_df
 
 
+import pandas as pd
+import streamlit as st
+import plotly.express as px
+
+def analyse_excel(path):
+    """Fonction pour analyser un fichier Excel avec 4 colonnes spécifiques."""
+    st.title("Analyse des données : IDH, Internet et Cyberattaques")
+
+    # Lecture des données
+    try:
+        data = pd.read_excel(path)
+
+        # Afficher les données brutes
+        st.write("### Aperçu des données")
+        st.dataframe(data)
+
+        # Colonnes requises
+        required_columns = ['country', 'IDH', 'Connections Internet (en %)', 'count']
+        if all(col in data.columns for col in required_columns):
+            # Statistiques descriptives
+            st.write("### Statistiques descriptives")
+            st.write(data.describe())
+
+            # Graphique 1 : Barplot IDH par pays
+            st.write("### Distribution de l'IDH par pays")
+            fig1 = px.bar(data, x='country', y='IDH', title='IDH par pays', text='IDH')
+            st.plotly_chart(fig1)
+
+            # Graphique 2 : Scatter plot Connexion Internet vs Cyberattaques
+            st.write("### % de Connexion Internet vs Nombre de Cyberattaques")
+            fig2 = px.scatter(
+                data,
+                x='Connections Internet (en %)',
+                y='count',
+                size='IDH',
+                color='country',
+                title='% de Connexion Internet vs Nombre de Cyberattaques',
+                hover_name='country'
+            )
+            st.plotly_chart(fig2)
+        else:
+            st.error("Le fichier doit contenir les colonnes suivantes : " + ", ".join(required_columns))
+    except Exception as e:
+        st.error(f"Erreur lors du chargement du fichier : {e}")
+
+# Appel de la fonction depuis Streamlit
+if __name__ == "__main__":
+    # Ajout d'un chargeur de fichier dans l'interface Streamlit
+    uploaded_file = st.file_uploader("Téléchargez un fichier Excel", type=["xlsx"])
+    if uploaded_file is not None:
+        analyse_excel(uploaded_file)
+    else:
+        st.info("Veuillez télécharger un fichier Excel.")
+
+
+
 if __name__ == "__main__":
     # Chemin vers votre fichier Excel
-    excel_path = "fichier_avec_idh.2.2.xlsx"
+    #excel_path = "fichier_avec_idh.2.2.xlsx"
 
     # Colonnes numériques pour l'analyse PCA
-    columns_to_analyze = ['IDH','Connections Internet (en %)',  'count']
+    #columns_to_analyze = ['IDH','Connections Internet (en %)',  'count']
 
     # Exécuter l'analyse PCA
-    pca_results = analyse_pca(excel_path, columns_to_analyze, country_column='country', n_components=2)
+    #pca_results = analyse_pca(excel_path, columns_to_analyze, country_column='country', n_components=2)
 
     # Afficher les résultats
-    print(pca_results)
+    #print(pca_results)
+    #analyse_excel("fichier_avec_idh.2.2.xlsx")
+
+    df = pd.read_excel("fichier_nettoye1.xlsx")
+    df.to_csv("fichier_net.csv")
+    """
+    # Nettoyer les espaces blancs autour des chaînes dans toutes les colonnes de type "object"
+    df = df.apply(lambda col: col.str.strip() if col.dtype == "object" else col)
+
+    # Supprimer les lignes contenant des NaN ou la valeur "No data"
+    df_nettoye = df[~((df.isnull().any(axis=1)) | (df.eq("No data").any(axis=1)))]
+
+
+    # Sauvegarder le fichier nettoyé au format Excel
+    df_nettoye.to_excel("fichier_nettoye1.xlsx", index=False)"""
+
+
+
+
 
 
 

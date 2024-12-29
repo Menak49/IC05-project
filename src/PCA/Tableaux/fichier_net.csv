@@ -1,0 +1,153 @@
+,country,count,IDH,Connections Internet (en %)
+0,Afghanistan,19,0.462,17.6
+1,Albania,9,0.789,83.1
+2,Algeria,2,0.745,71.2
+3,Andorra,1,0.884,94.5
+4,Angola,32,0.591,39.3
+5,Argentina,36,0.849,89.2
+6,Armenia,56,0.786,77.0
+7,Australia,263,0.946,94.9
+8,Austria,31,0.926,95.3
+9,Azerbaijan,23,0.76,88.0
+10,Bahamas,2,0.82,94.4
+11,Bahrain,14,0.888,100.0
+12,Bangladesh,17,0.67,44.5
+13,Barbados,3,0.809,76.2
+14,Belarus,31,0.801,91.5
+15,Belgium,68,0.942,94.6
+16,Bolivia (Plurinational State of),2,0.698,73.3
+17,"Bonaire, Sint Eustatius and Saba",1,0.838,91.4
+18,Bosnia and Herzegovina,2,0.779,83.4
+19,Brazil,146,0.76,84.2
+20,Bulgaria,15,0.799,80.4
+21,Cabo Verde,1,0.661,72.1
+22,Cambodia,23,0.6,56.7
+23,Canada,364,0.935,94.0
+24,Chile,35,0.86,94.1
+25,China,161,0.788,77.5
+26,Colombia,26,0.758,72.8
+27,Costa Rica,15,0.806,85.1
+28,Croatia,8,0.878,83.2
+29,Cuba,1,0.764,73.2
+30,Cyprus,6,0.907,91.2
+31,Czech Republic,2,0.895,86.0
+32,Denmark,39,0.952,98.8
+33,Dominican Republic,5,0.766,84.4
+34,Ecuador,13,0.765,72.7
+35,Egypt,25,0.728,72.2
+36,El Salvador,5,0.674,62.9
+37,Estonia,25,0.899,93.2
+38,Ethiopia,1,0.492,19.4
+39,Fiji,2,0.729,85.2
+40,Finland,31,0.942,93.5
+41,France,264,0.91,86.8
+42,Gabon,1,0.693,73.7
+43,Georgia,7,0.814,81.9
+44,Germany,244,0.95,92.5
+45,Ghana,4,0.602,69.8
+46,Greece,30,0.893,85.0
+47,Guatemala,9,0.629,54.4
+48,Hong Kong,13,0.956,95.6
+49,Hungary,13,0.851,91.5
+50,Iceland,1,0.959,99.9
+51,India,324,0.644,43.4
+52,Indonesia,33,0.713,69.2
+53,Iran (Islamic Republic of),53,0.78,81.7
+54,Iraq,4,0.673,78.7
+55,Ireland,45,0.95,95.6
+56,Islamic Republic of Iran,1,0.78,81.7
+57,Israel,201,0.915,91.9
+58,Italy,413,0.906,87.0
+59,Jamaica,4,0.706,85.1
+60,Japan,160,0.92,84.9
+61,Jordan,10,0.736,90.5
+62,Kazakhstan,5,0.802,92.9
+63,Kenya,17,0.601,40.8
+64,Kiribati,2,0.628,54.4
+65,Korea (the Democratic People's Republic of),3,0.929,7.5
+66,Korea (the Republic of),75,0.929,86.0
+67,Kuwait,8,0.847,99.7
+68,Lao People's Democratic Republic,2,0.895,86.0
+69,Latvia,52,0.879,92.2
+70,Lebanon,8,0.723,90.1
+71,Lebanon,2,0.723,90.1
+72,Lesotho,1,0.521,47.0
+73,Libya,1,0.746,88.4
+74,Liechtenstein,2,0.942,96.8
+75,Lithuania,76,0.879,88.5
+76,Luxembourg,7,0.927,99.3
+77,Malawi,2,0.508,18.0
+78,Malaysia,47,0.807,97.7
+79,Maldives,5,0.762,83.9
+80,Mali,2,0.41,33.1
+81,Malta,12,0.915,91.9
+82,Mexico,73,0.781,81.2
+83,Moldova (the Republic of),19,0.763,63.5
+84,Mongolia,4,0.741,83.9
+85,Montenegro,6,0.844,88.2
+86,Morocco,11,0.698,89.9
+87,Myanmar,9,0.608,48.1
+88,Namibia,2,0.61,62.2
+89,Nauru,1,0.696,82.7
+90,Nepal,16,0.601,49.6
+91,Netherlands,99,0.946,97.0
+92,New Zealand,66,0.939,95.7
+93,Nicaragua,1,0.669,61.1
+94,Nigeria,16,0.548,35.5
+95,Norway,42,0.966,99.0
+96,Oman,4,0.819,95.3
+97,Pakistan,82,0.54,32.9
+98,Palau,2,0.797,27.0
+99,"Palestine, State of",7,0.716,86.6
+100,Panama,12,0.82,73.6
+101,Papua New Guinea,1,0.568,27.0
+102,Paraguay,4,0.731,78.1
+103,Peru,7,0.762,74.7
+104,Philippines,71,0.71,75.2
+105,Poland,130,0.881,86.4
+106,Portugal,21,0.874,85.8
+107,Qatar,6,0.875,100.0
+108,Republic of North Macedonia,1,0.765,84.2
+109,Romania,23,0.827,89.2
+110,Russian Federation,389,0.821,92.2
+111,Rwanda,2,0.548,34.4
+112,Saint Vincent and the Grenadines,2,0.772,77.7
+113,Saudi Arabia,57,0.875,100.0
+114,Senegal,1,0.517,60.0
+115,Serbia,4,0.805,85.4
+116,Seychelles,4,0.802,86.7
+117,Sierra Leone,1,0.458,30.4
+118,Singapore,74,0.949,94.3
+119,Slovakia,19,0.855,87.2
+120,Slovenia,5,0.926,90.4
+121,South Africa,63,0.717,74.7
+122,Spain,109,0.911,95.4
+123,Sri Lanka,9,0.78,50.1
+124,Sudan,1,0.516,28.7
+125,Sweden,55,0.952,95.7
+126,Switzerland,72,0.967,97.3
+127,Syrian Arab Republic,10,0.557,34.7
+128,Taiwan (Province of China),60,0.788,77.5
+129,Tajikistan,1,0.679,36.1
+130,"Tanzania, United Republic of",2,0.532,31.9
+131,Thailand,71,0.803,89.5
+132,Togo,5,0.547,37.6
+133,Tonga,1,0.739,57.5
+134,Trinidad and Tobago,6,0.814,80.0
+135,Tunisia,1,0.732,73.8
+136,Turkey,58,0.855,86.0
+137,Turkmenistan,13,0.744,21.3
+138,Uganda,3,0.55,10.0
+139,Ukraine,407,0.734,79.2
+140,United Arab Emirates,25,0.937,100.0
+141,United Kingdom of Great Britain and Northern Ireland,756,0.95,95.6
+142,United States of America,6779,0.927,97.1
+143,Uruguay,2,0.83,89.9
+144,Uzbekistan,5,0.727,89.0
+145,Vanuatu,1,0.614,69.9
+146,Venezuela (Bolivarian Republic of),20,0.699,61.6
+147,Viet Nam,21,0.726,78.1
+148,Vietnam,1,0.726,78.1
+149,Yemen,1,0.424,17.7
+150,Zambia,1,0.569,31.2
+151,Zimbabwe,6,0.55,32.6
