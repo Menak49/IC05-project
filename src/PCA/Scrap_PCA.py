@@ -159,6 +159,8 @@ def scrap_internet(url): #ITU
 
 
 
+
+
 if __name__ == "__main__":
     #update_excel_with_idh("fichier_grouped.xlsx", url, regions)
     #dico_idh = scrap_idh("https://en.wikipedia.org/wiki/List_of_countries_by_Human_Development_Index")
@@ -166,6 +168,8 @@ if __name__ == "__main__":
     #update_excel_with_idh("Tableaux/fichier_avec_idh.xlsx", dico_idh)
     dico_internet = scrap_internet("https://en.wikipedia.org/wiki/List_of_countries_by_number_of_Internet_users")
     update_excel("Tableaux/fichier_avec_idh.2.xlsx", dico_internet, 'Connections Internet (en %)')
+
+
 
 
 
