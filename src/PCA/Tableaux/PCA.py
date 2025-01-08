@@ -1,3 +1,5 @@
+
+
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
@@ -12,26 +14,6 @@ import numpy as np
 
 import streamlit as st
 import plotly.express as px
-
-
-def remplacer_no_data_par_moyenne(df, columns):
-
-    for col in columns:
-        # Convertir la colonne en numérique (remplace les erreurs comme "No Data" par NaN)
-        df[col] = pd.to_numeric(df[col], errors='coerce')
-
-        # Remplacer les NaN par la moyenne de la colonne
-        if df[col].isnull().sum() > 0:
-            moyenne = df[col].mean()
-            df[col] = df[col].fillna(moyenne)
-
-    for index, row in df.iterrows():
-        for col in df.columns:
-            # Si la valeur de la cellule se termine par '\n', enlever le '\n'
-            if isinstance(row[col], str) and row[col].endswith('\n'):
-                df.at[index, col] = row[col].rstrip('\n')
-    print(df.head())
-    return df
 
 
 def analyse_pca(excel_path, columns_to_analyze, country_column='Pays', n_components=2):
@@ -164,14 +146,7 @@ def analyse_excel(path):
     except Exception as e:
         st.error(f"Erreur lors du chargement du fichier : {e}")
 
-# Appel de la fonction depuis Streamlit
-if __name__ == "__main__":
-    # Ajout d'un chargeur de fichier dans l'interface Streamlit
-    uploaded_file = st.file_uploader("Téléchargez un fichier Excel", type=["xlsx"])
-    if uploaded_file is not None:
-        analyse_excel(uploaded_file)
-    else:
-        st.info("Veuillez télécharger un fichier Excel.")
+
 
 
 
@@ -192,10 +167,10 @@ if __name__ == "__main__":
     df = pd.read_excel("fichier_nettoye1.xlsx")
     df.to_csv("fichier_net.csv")
     """
-    # Nettoyer les espaces blancs autour des chaînes dans toutes les colonnes de type "object"
+
     df = df.apply(lambda col: col.str.strip() if col.dtype == "object" else col)
 
-    # Supprimer les lignes contenant des NaN ou la valeur "No data"
+
     df_nettoye = df[~((df.isnull().any(axis=1)) | (df.eq("No data").any(axis=1)))]
 
 

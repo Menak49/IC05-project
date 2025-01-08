@@ -91,10 +91,10 @@ def scrap_idh(url):
     # Récupération du contenu HTML de la page
     response = requests.get(url)
     if response.status_code == 200:
-        # Parser le contenu HTML avec lxml
+        # parser le contenu HTML avec lxml
         tree = html.fromstring(response.content)
 
-        # Utiliser XPath pour trouver la table avec les classes spécifiées
+        # xPath pour trouver la table avec les classes spécifiées
         xpath_expr = "//*[@id='mw-content-text']/div[1]/table[2]/tbody//tr"
         table = tree.xpath(xpath_expr)
         #print(len(table[4].text_content()))
@@ -121,9 +121,8 @@ def update_excel(excel_path, dico_pays, colonne):
     # Lire le fichier Excel existant
     df = pd.read_excel(excel_path)
 
-    # Ajouter une colonne 'IDH' basée sur les pays
     for index, row in df.iterrows():
-        country = row['country']  # Supposons que la colonne des pays s'appelle 'Pays'
+        country = row['country']
         result = process.extractOne(country, dico_pays.keys(), score_cutoff=80)
         if result:  # Si un résultat est trouvé avec un score suffisant
             match, score, _ = result  # Déballer correctement le tuple
@@ -142,7 +141,7 @@ def scrap_internet(url): #ITU
         # Parser le contenu HTML avec lxml
         tree = html.fromstring(response.content)
 
-        # Utiliser XPath pour trouver la table avec les classes spécifiées
+        # xPath pour trouver la table avec les classes spécifiées
         xpath_expr = "//*[@id='mw-content-text']/div[1]/table[3]/tbody/tr"
 
         table = tree.xpath(xpath_expr)

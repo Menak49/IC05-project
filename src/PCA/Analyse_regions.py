@@ -25,7 +25,7 @@ regions = {
     "Territoires et régions spéciales": ["Isle of Man", "Bonaire, Sint Eustatius and Saba", "Sint Maarten", "Hong Kong", "Macau", "Greenland", "Kosovo", "Palestine, State of", "European Union", "Multiple"]
 }
 
-# Fonction pour ajouter la colonne "région" basée sur "country"
+
 def ajouter_region(fichier_excel):
     # Charger le fichier Excel
     df = pd.read_excel(fichier_excel)
@@ -51,7 +51,6 @@ def group_by(path):
     df = pd.read_excel(path)
 
 
-    # Afficher les premières lignes du fichier pour vérifier les données
 
 
     # Effectuer un "group by" sur la colonne 'Pays' et sommer les ventes
@@ -61,6 +60,5 @@ def group_by(path):
 
 
 
-# Exemple d'utilisation
 if(__name__ == "__main__"):
     group_by("fichier_avec_region.xlsx")
